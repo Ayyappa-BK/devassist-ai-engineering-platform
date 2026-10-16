@@ -1,0 +1,21 @@
+import {test,expect} from '@playwright/test';
+test('connect, analyze, approve context, generate and review a draft',async({page})=>{
+ await page.goto('/');
+ await page.getByLabel('Operator token').fill(process.env.API_TOKEN!);
+ await page.getByRole('button',{name:'Connect repository'}).click();
+ await expect(page.getByRole('status')).toContainText('Repository connected');
+ await page.getByRole('button',{name:'Analyze Java source'}).click();
+ await expect(page.getByRole('status')).toContainText('analysis complete');
+ await page.getByLabel('Repository file').fill('README.md');
+ await page.getByRole('button',{name:'Approve document for RAG'}).click();
+ await expect(page.getByRole('status')).toContainText('snapshot approved');
+ await page.getByLabel('Repository file').fill('src/InvoiceService.java');
+ await page.getByRole('button',{name:'Generate draft'}).click();
+ await expect(page.getByText('PENDING',{exact:true})).toBeVisible();
+ await expect(page.getByRole('button',{name:'Export Markdown'})).toBeDisabled();
+ await page.getByRole('button',{name:'Approve',exact:true}).click();
+ await expect(page.getByText('APPROVED',{exact:true})).toBeVisible();
+ const download=page.waitForEvent('download');
+ await page.getByRole('button',{name:'Export Markdown'}).click();
+ expect((await download).suggestedFilename()).toBe('devassist-draft.md');
+});

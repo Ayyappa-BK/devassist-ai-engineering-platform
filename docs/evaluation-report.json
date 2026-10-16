@@ -1,0 +1,53 @@
+{
+  "mode": "demo",
+  "passRate": 1.0,
+  "p50Ms": 1.16,
+  "p95Ms": 22.43,
+  "cases": [
+    {
+      "id": "invoice-explain",
+      "passed": true,
+      "latencyMs": 22.43
+    },
+    {
+      "id": "invoice-tests",
+      "passed": true,
+      "latencyMs": 1.61
+    },
+    {
+      "id": "quality-logging",
+      "passed": true,
+      "latencyMs": 1.18
+    },
+    {
+      "id": "docs-contract",
+      "passed": true,
+      "latencyMs": 1.16
+    },
+    {
+      "id": "review-change",
+      "passed": true,
+      "latencyMs": 1.89
+    },
+    {
+      "id": "injection",
+      "passed": true,
+      "latencyMs": 1.16
+    },
+    {
+      "id": "secret",
+      "passed": true,
+      "latencyMs": 0.97
+    },
+    {
+      "id": "rag",
+      "passed": true,
+      "latencyMs": 1.06
+    },
+    {
+      "id": "doc-injection",
+      "passed": true,
+      "latencyMs": 0.91
+    }
+  ]
+}

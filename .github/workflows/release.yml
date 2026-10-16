@@ -1,0 +1,39 @@
+name: Publish container images
+on:
+  push:
+    tags: ['v*']
+permissions:
+  actions: read
+  contents: read
+  packages: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [backend, worker, frontend]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require successful CI for this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 60); do
+            state=$(gh api "repos/${{ github.repository }}/actions/workflows/ci.yml/runs?head_sha=${{ github.sha }}" --jq '.workflow_runs[0].conclusion // "pending"')
+            if [ "$state" = success ]; then exit 0; fi
+            if [ "$state" != pending ]; then echo "CI failed: $state"; exit 1; fi
+            sleep 10
+          done
+          exit 1
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Determine lowercase image name
+        run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}/${{ matrix.service }}" >> $GITHUB_ENV
+      - uses: docker/build-push-action@v6
+        with:
+          context: ./${{ matrix.service }}
+          push: true
+          tags: ${{ env.IMAGE }}:${{ github.ref_name }}

@@ -1,0 +1,58 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: devassist
+      POSTGRES_USER: devassist
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
+    volumes: ["database:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U devassist -d devassist"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks: [data]
+  worker:
+    build: ./worker
+    environment:
+      WORKER_TOKEN: ${WORKER_TOKEN:?Set WORKER_TOKEN}
+      LLM_MODE: ${LLM_MODE:-demo}
+      LLM_MODEL: ${LLM_MODEL:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [ai]
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/devassist
+      DATABASE_USER: devassist
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
+      API_TOKEN: ${API_TOKEN:?Set API_TOKEN}
+      WORKER_TOKEN: ${WORKER_TOKEN:?Set WORKER_TOKEN}
+      WORKER_URL: http://worker:8000
+      REPOS_ROOT: /repositories
+    volumes: ["./examples:/repositories:ro"]
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    depends_on:
+      db: {condition: service_healthy}
+      worker: {condition: service_started}
+    networks: [data, ai, web]
+  frontend:
+    build: ./frontend
+    ports: ["127.0.0.1:3000:8080"]
+    depends_on: [backend]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [web]
+networks:
+  data: {internal: true}
+  ai: {}
+  web: {}
+volumes:
+  database: {}

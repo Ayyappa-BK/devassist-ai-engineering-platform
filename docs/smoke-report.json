@@ -1,0 +1,25 @@
+{
+  "workflow": "PASS",
+  "results": [
+    {
+      "task": "explain",
+      "latencyMs": 50.21
+    },
+    {
+      "task": "tests",
+      "latencyMs": 14.9
+    },
+    {
+      "task": "quality",
+      "latencyMs": 13.76
+    },
+    {
+      "task": "docs",
+      "latencyMs": 14.29
+    },
+    {
+      "task": "review",
+      "latencyMs": 13.17
+    }
+  ]
+}

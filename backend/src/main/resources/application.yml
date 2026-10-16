@@ -1,0 +1,26 @@
+server:
+  port: 8080
+  error:
+    include-message: never
+spring:
+  main:
+    banner-mode: off
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/devassist}
+    username: ${DATABASE_USER:devassist}
+    password: ${DATABASE_PASSWORD}
+  sql:
+    init:
+      mode: always
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+app:
+  repos: ${REPOS_ROOT:../examples}
+  token: ${API_TOKEN}
+  worker: ${WORKER_URL:http://localhost:8000}
+  worker-token: ${WORKER_TOKEN}
+logging:
+  structured:
+    format:
+      console: logstash

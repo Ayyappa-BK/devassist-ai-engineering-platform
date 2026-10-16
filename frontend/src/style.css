@@ -1,0 +1,280 @@
+:root {
+  font-family: "DM Sans", system-ui, sans-serif;
+  color: #1c2928;
+  background: #f5f7f6;
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.shell {
+  display: flex;
+  min-height: 100vh;
+}
+aside {
+  width: 250px;
+  background: #122f2b;
+  color: #c0d2cc;
+  padding: 35px 24px;
+  display: flex;
+  flex-direction: column;
+}
+.brand {
+  color: #c5f1a8;
+  font-size: 30px;
+  font-weight: 700;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.brand span {
+  font-size: 21px;
+  color: white;
+}
+.muted {
+  color: #778781;
+  font-size: 13px;
+  line-height: 1.7;
+}
+aside .muted {
+  font-size: 10px;
+  margin-top: 50px;
+  letter-spacing: 1.5px;
+}
+nav {
+  display: grid;
+  gap: 10px;
+  font-size: 13px;
+}
+nav > * {
+  padding: 14px 12px;
+}
+nav b {
+  background: #25443d;
+  color: #d6f5b7;
+  border-radius: 7px;
+}
+.aside-bottom {
+  margin-top: auto;
+  font-size: 12px;
+  line-height: 1.8;
+  padding-top: 100px;
+}
+.aside-bottom strong {
+  color: #c5f1a8;
+}
+main {
+  padding: 46px;
+  max-width: 1550px;
+  flex: 1;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 20px;
+}
+small {
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  color: #718078;
+}
+h1 {
+  font-size: 32px;
+  letter-spacing: -1.2px;
+  font-weight: 600;
+  margin: 14px 0;
+}
+header p {
+  color: #738079;
+  font-size: 14px;
+}
+.badge {
+  background: #e6efdf;
+  color: #426137;
+  padding: 7px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.connection {
+  background: white;
+  border: 1px solid #dfe6e0;
+  border-radius: 12px;
+  margin: 30px 0;
+  display: flex;
+  gap: 18px;
+  padding: 22px;
+  align-items: end;
+}
+.connection label {
+  flex: 1;
+}
+label {
+  display: grid;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 600;
+}
+input {
+  background: #f9faf8;
+  border: 1px solid #dbe2dc;
+  padding: 12px;
+  border-radius: 6px;
+  min-width: 0;
+  width: 100%;
+  font: inherit;
+  color: #243c33;
+}
+button {
+  border: none;
+  border-radius: 6px;
+  padding: 13px 17px;
+  background: #244d3e;
+  color: white;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+button:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+.secondary {
+  background: #edf2ec;
+  color: #355343;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 24px;
+}
+.card {
+  background: white;
+  border: 1px solid #dfe6e0;
+  border-radius: 12px;
+  padding: 26px;
+}
+h2 {
+  font-size: 19px;
+  letter-spacing: -0.5px;
+  margin: 12px 0 25px;
+}
+.file-list {
+  display: grid;
+  gap: 4px;
+  margin: 18px 0;
+}
+.file-list button {
+  background: transparent;
+  color: #637269;
+  text-align: left;
+  overflow-wrap: anywhere;
+  font-size: 11px;
+}
+.file-list .selected {
+  background: #edf4e7;
+  color: #355a3d;
+}
+.card > .secondary {
+  margin: 4px 0;
+  width: 100%;
+}
+.tasks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+.tasks button {
+  background: #f4f6f2;
+  color: #5e6b62;
+  border: 1px solid #e5e9e3;
+}
+.tasks .active {
+  border-color: #719667;
+  color: #2d5031;
+  background: #eaf3e3;
+}
+.output {
+  margin-top: 28px;
+  border: 1px solid #e4e9e2;
+  border-radius: 8px;
+  padding: 20px;
+}
+.output-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+.empty {
+  text-align: center;
+  padding: 55px 10px;
+  color: #8e9c8b;
+}
+.empty h3 {
+  font-size: 16px;
+  color: #4d6353;
+}
+.empty p {
+  font-size: 12px;
+}
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font:
+    12px/1.8 ui-monospace,
+    monospace;
+  background: #f7f9f5;
+  padding: 15px;
+  border-radius: 6px;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+footer {
+  font-size: 12px;
+  margin-top: 24px;
+  color: #526a59;
+  padding: 14px;
+  background: #eaf0e6;
+  border-radius: 6px;
+}
+@media (max-width: 1100px) {
+  aside {
+    width: 190px;
+  }
+  main {
+    padding: 24px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .connection {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 700px) {
+  aside {
+    display: none;
+  }
+  header {
+    display: block;
+  }
+  .connection {
+    display: grid;
+  }
+  .actions {
+    flex-wrap: wrap;
+  }
+  h1 {
+    font-size: 27px;
+  }
+}
